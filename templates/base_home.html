@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}TimeLane{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}" />
+  <style>
+    nav.navbar {
+      background-color: #0077cc;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      align-items: center;
+    }
+
+    nav.navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    nav.navbar a:hover {
+      background-color: white;
+      color: #0077cc;
+    }
+
+    nav.navbar span.username {
+      color: white;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .timeline-btn-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .timeline-btn-container .btn {
+      background-color: #0077cc;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .timeline-btn-container .btn:hover {
+      background-color: white;
+      color: #0077cc;
+      border: 1px solid #0077cc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="text-align: center; margin-top: 20px;">TimeLane</h1>
+    <nav class="navbar">
+      {% if 'user_id' in session %}
+        <a href="{{ url_for('create_event') }}">Create Event</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="form-container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p style="text-align: center; margin: 20px 0;">© 2025 TimeLane. All rights reserved.</p>
+  </footer>
+</body>
+</html>

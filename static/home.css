@@ -1,0 +1,124 @@
+:root {
+  --main-color: #4e91fc;
+  --hover-color: #ffffff;
+  --text-on-hover: #4e91fc;
+  --bg-color: #f0f4ff;
+  --text-color: #333;
+  --header-gradient: linear-gradient(90deg, #4e91fc, #a777e3);
+  --footer-bg: #e0e7ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+header {
+  background: var(--header-gradient);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav .btn {
+  background-color: white;
+  color: var(--main-color);
+  padding: 12px 26px;
+  margin: 0 10px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+nav .btn:hover {
+  background-color: var(--main-color);
+  color: white;
+  border-color: var(--main-color);
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+main {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.intro h2 {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+  color: var(--main-color);
+}
+
+.intro p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 10px auto;
+}
+
+footer {
+  background-color: var(--footer-bg);
+  text-align: center;
+  padding: 20px;
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 60px;
+  border-top: 1px solid #ccc;
+}
+
+.timeline-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.timeline-btn-container .btn {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.btn-public {
+  background-color: #3498db;
+  margin-left: 10px;
+}
+
+.btn-public:hover {
+  background-color: #2980b9;
+}
+

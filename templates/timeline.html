@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Timeline - TimeLane{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/static/timeline.css">
+{% endblock %}
+
+{% block content %}
+  <h2>My Timeline</h2>
+  <div class="timeline-wrapper">
+    <div class="timeline">
+      {% for event in events %}
+        <div class="event">
+          <div class="dot"></div>
+          <div class="event-card">
+            <div class="event-date">{{ event['date'] }}</div>
+            <div class="event-title">{{ event['title'] }}</div>
+            {% if event['description'] %}
+              <div class="event-description">{{ event['description'] }}</div>
+            {% endif %}
+            {% if event['image_filename'] %}
+              <img src="{{ url_for('static', filename='uploads/' + event['image_filename']) }}" alt="Event Image" class="event-img">
+            {% endif %}
+
+            {% if event['is_published'] %}
+            <div class="published-tag">✅ Published</div>
+          {% else %}
+            <form action="{{ url_for('publish_event', event_id=event['id']) }}" method="post">
+              <button type="submit" class="publish-btn">✅ Publish</button>
+            </form>
+          {% endif %}
+          
+            <form method="POST" action="{{ url_for('delete_event', event_id=event['id']) }}">
+              <button class="delete-btn" onclick="return confirm('Are you sure you want to delete this event?')">🗑️ Delete</button>
+            </form>
+            
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base_home.html" %}
+
+{% block title %}Home - TimeLane{% endblock %}
+
+{% block content %}
+  <section class="intro">
+    {% if username == 'Guest' %}
+      <h2>Welcome, guest!</h2>
+      <p>Create your personal timeline and add the moments that matter most to you.</p>
+      <p>Login or register to start building your timeline today!</p>
+    {% else %}
+      <h2>Welcome, {{ username }}!</h2>
+      <p>Create your personal timeline and add the moments that matter most to you.</p>
+
+    {% endif %}
+
+    <div class="timeline-btn-container">
+      <a href="{{ url_for('timeline') }}" class="btn">View Timeline</a>
+      <a href="{{ url_for('public_timeline') }}" class="btn btn-public">View Public Timeline</a>
+    </div>
+    
+    
+  </section>
+{% endblock %}

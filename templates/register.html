@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Register - TimeLane{% endblock %}
+
+{% block head %}
+  <script src="{{ url_for('static', filename='register.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+  <h2>Create Your Account</h2>
+  <form id="registerForm" method="POST" action="{{ url_for('register') }}">
+    <label for="first_name">First Name</label>
+    <input type="text" id="first_name" name="first_name" required />
+    <span class="error-message" id="error_first_name"></span>
+  
+    <label for="last_name">Last Name</label>
+    <input type="text" id="last_name" name="last_name" required />
+    <span class="error-message" id="error_last_name"></span>
+  
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+    <span class="error-message" id="error_email"></span>
+  
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required />
+    <span class="error-message" id="error_username"></span>
+  
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required />
+    <span class="error-message" id="error_password"></span>
+  
+    <label for="confirm_password">Confirm Password</label>
+    <input type="password" id="confirm_password" name="confirm_password" required />
+    <span class="error-message" id="error_confirm_password"></span>
+  
+    <button type="submit" class="btn">Register</button>
+  </form>
+  
+  
+
+  <p style="text-align: center; margin-top: 15px;">
+    Already have an account? <a href="{{ url_for('login') }}">Login here</a>.
+  </p>
+{% endblock %}

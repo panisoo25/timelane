@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}TimeLane{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}" />
+  {% block head %}{% endblock %}
+  <style>
+    nav.navbar {
+      background-color: #0077cc;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    nav.navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    nav.navbar a:hover {
+      background-color: white;
+      color: #0077cc;
+    }
+
+    .btn-back-container {
+      text-align: center;
+      margin: 25px 0;
+    }
+    .btn-back-container a {
+      background-color: #0077cc;
+      color: white;
+      padding: 8px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      display: inline-block;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .btn-back-container a:hover {
+      background-color: white;
+      color: #0077cc;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.85em;
+      margin-top: 4px;
+      display: block;
+      min-height: 18px;
+    }
+
+    ul.flashes {
+      list-style-type: none;
+      padding: 0;
+      margin: 10px auto;
+      text-align: center;
+    }
+
+    ul.flashes li {
+      color: red;
+      font-weight: bold;
+    }
+    
+    
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="text-align: center; margin-top: 20px;">TimeLane</h1>
+    <nav class="navbar">
+      {% if username == "Guest" %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+      {% else %}
+        <a href="{{ url_for('create_event') }}">Create Event</a>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+      {% endif %}
+    </nav>
+    
+  </header>
+
+  <main class="form-container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <div class="btn-back-container">
+      <a href="{{ url_for('home') }}">← Go Home</a>
+    </div>
+  </main>
+
+  <footer>
+    <p style="text-align: center; margin: 20px 0;">© 2025 TimeLane. All rights reserved.</p>
+  </footer>
+</body>
+</html>
