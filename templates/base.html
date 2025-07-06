@@ -75,8 +75,12 @@
       {% if username == "Guest" %}
         <a href="{{ url_for('login') }}">Login</a>
         <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+
+
       {% else %}
         <a href="{{ url_for('create_event') }}">Create Event</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
         <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
       {% endif %}
     </nav>

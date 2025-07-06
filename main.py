@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 import os
 import uuid
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
 from werkzeug.utils import secure_filename
 
 
@@ -12,6 +16,47 @@ DATABASE = 'database.db'
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+#////////////////////////////////////////////////
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+def send_email(name, email, message):
+    sender_email = "orishragai2509@gmail.com"
+    receiver_email = "orishragai2509@gmail.com"  # אתה
+    password = "fuhqabwrwgkbvclv"  # סיסמת האפליקציה שיצרת
+
+    subject = "New Contact Message from TimeLane"
+    body = f"""
+    You got a new message from TimeLane:
+
+    Name: {name}
+    Email: {email}
+
+    Message:
+    {message}
+    """
+
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+    msg['Subject'] = subject
+
+    msg.attach(MIMEText(body, 'plain'))
+
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(sender_email, password)
+            server.send_message(msg)
+            print("Email sent successfully!")
+    except Exception as e:
+        print("Error sending email:", e)
+
+
+#//////////////////////////////////////////////
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -131,6 +176,17 @@ def all_users():
     username = session.get('username')
     return render_template('all_users.html', users=users, username=username)
 
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+
+        send_email(name, email, message)
+        return render_template('contact.html', success=True)
+
+    return render_template('contact.html')
 
 
 @app.route('/timeline')
@@ -278,10 +334,3 @@ if __name__ == '__main__':
     add_image_column_if_not_exists()
     add_is_published_column_if_not_exists()
     app.run(debug=True)
-
-
-if __name__ == '__main__':
-    init_db()
-    app.run(debug=True)
-
-
