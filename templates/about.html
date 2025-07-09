@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}About - TimeLane{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1 class="mb-4">About TimeLane</h1>
+  <p>
+    Welcome to <strong>TimeLane</strong> – a digital timeline where you can document and explore events throughout history or your own life.
+    Whether you're creating private memories or sharing public milestones, TimeLane lets you build a meaningful timeline with ease.
+  </p>
+  <p>
+    The web was created as a fun project by <strong>Ori Shragai</strong>, with a vision to help users to set
+    up a timeline with important events (or made up ones)
+    in a fun and interactive way.
+  </p>
+  <p>
+    Key features include:
+  </p>
+  <ul>
+    <li>Create private events on your personal timeline</li>
+    <li>Publish selected events to the public timeline</li>
+    <li>Interact with a clean and simple interface</li>
+  </ul>
+  <p>
+    Have questions or feedback? Visit our <a href="{{ url_for('contact') }}">Contact</a> page.
+  </p>
+</div>
+{% endblock %}
+
+

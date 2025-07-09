@@ -164,6 +164,9 @@ def home():
     username = session.get('username', 'Guest')
     return render_template('home.html', username=username)
 
+@app.route('/about')
+def about():
+    return render_template("about.html")
 
 @app.route('/all_users')
 def all_users():
