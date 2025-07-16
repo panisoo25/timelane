@@ -278,7 +278,7 @@ def logout():
 
 
 #//////////////////////////////////////////////////////////
-#create event and delete event and publish event
+#create event and delete event and publish event and edit
 @app.route('/create_event', methods=['GET', 'POST'])
 def create_event():
     if 'username' not in session:
@@ -347,6 +347,51 @@ def publish_event(event_id):
         conn.commit()
     conn.close()
     return redirect(url_for('public_timeline'))
+
+
+
+
+@app.route('/edit_event/<int:event_id>', methods=['GET', 'POST'])
+def edit_event(event_id):
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+
+    conn = get_db_connection()
+    c = conn.cursor()
+
+    # לוודא שהאירוע שייך למשתמש
+    c.execute('SELECT * FROM events WHERE id = ? AND user_id = ?', (event_id, session['user_id']))
+    event = c.fetchone()
+
+    if not event:
+        conn.close()
+        return "Event not found or access denied", 404
+
+    if request.method == 'POST':
+        title = request.form.get('event_title')
+        date = request.form.get('event_date')
+        description = request.form.get('event_description')
+        image = request.files.get('event_image')
+        image_filename = event['image_filename']
+
+        if image and allowed_file(image.filename):
+            filename = secure_filename(image.filename)
+            unique_filename = f"{uuid.uuid4().hex}_{filename}"
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
+            image_filename = unique_filename
+
+        c.execute('''
+            UPDATE events
+            SET title = ?, date = ?, description = ?, image_filename = ?
+            WHERE id = ?
+        ''', (title, date, description, image_filename, event_id))
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('timeline'))
+
+    conn.close()
+    return render_template('edit_event.html', event=event)
 
 #//////////////////////////////////////////////////////
 

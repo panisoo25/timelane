@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Event - TimeLane{% endblock %}
+
+{% block content %}
+  <h2>Edit Event</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <label for="event_title">Event Title</label>
+    <input type="text" id="event_title" name="event_title" value="{{ event['title'] }}" required />
+
+    <label for="event_date">Event Date</label>
+    <input type="date" id="event_date" name="event_date" value="{{ event['date'] }}" required />
+
+    <label for="event_description">Description</label>
+    <textarea id="event_description" name="event_description" rows="4">{{ event['description'] }}</textarea>
+
+    {% if event['image_filename'] %}
+      <p>Current Image:</p>
+      <img src="{{ url_for('static', filename='uploads/' + event['image_filename']) }}" width="200">
+    {% endif %}
+
+    <label for="event_image">Change Image (optional)</label>
+    <input type="file" id="event_image" name="event_image" accept="image/*" />
+
+    <button type="submit" class="btn">💾 Save Changes</button>
+  </form>
+{% endblock %}
